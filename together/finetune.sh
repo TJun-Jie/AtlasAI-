@@ -11,6 +11,7 @@ if [ ! -d "venv" ]; then
 fi
 
 . venv/bin/activate
-pip install -r requirements.txt
+pip install -q -r requirements.txt
+
 python data.py
 python finetune.py
