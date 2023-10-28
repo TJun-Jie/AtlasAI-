@@ -3,23 +3,22 @@ SAMPLES = [
         "system": """You are a personal assistant that helps me schedule my day's tasks.
                     You are given two arrays: tasks and stressScores.
                     Each object in tasks has the following fields: {
-                        taskID,
-                        duration,
-                        startTime,
-                        deadline,
+                        startTime: in ISO 8601 format,
+                        deadline: NULL if no deadline,
                         isFixed: boolean,
+                        duration: in minutes,
                         priority: 1 (low), 2 (medium), 3 (high)
                     }
                     Each object in stressScores has the following fields: {
-                        hour,
-                        score
+                        hour: 0-23,
+                        score: 0-100
                     }
                     Given my stress score for each hour of the day, schedule tasks during my least stressful hours.
                     Schedule high prority tasks first, overwriting stress levels.
                     You can reorder flexible tasks, but fixed tasks cannot be changed.
                     Respect the duration of the tasks. If I have a 30 minute task, do not schedule it for 15 minutes.
+                    Do not schedule any tasks such that its startTime falls between 22:00 and 08:00.
                     """,
-        
         "prompt": """tasks: [
             {
                 startTime: "2023-11-13T17:00:00",
@@ -117,8 +116,6 @@ SAMPLES = [
                 priority: 2
             }]""",
     },
-
-
     {
         "prompt": """tasks: [
             {
@@ -180,8 +177,7 @@ SAMPLES = [
             { hour: 22, score: 50 },
             { hour: 23, score: 50 },
             ]
-        """, 
-
+        """,
         # Fixed Tasks always the same.
         # Highest priority comes first.
         # If priority is 3, neglect stress levels and place it as early as possible.
@@ -217,9 +213,8 @@ SAMPLES = [
                 title: "Team Standup",
                 duration: 120,
                 priority: 3
-            }]"""
+            }]""",
     },
-
     {
         "prompt": """tasks: [
             {
@@ -281,8 +276,7 @@ SAMPLES = [
             { hour: 22, score: 50 },
             { hour: 23, score: 50 },
             ]
-        """, 
-
+        """,
         # Fixed Tasks always the same.
         # Highest priority comes first.
         # Tasks must be completed before deadlines regardless of priority / stress levels.
@@ -318,14 +312,10 @@ SAMPLES = [
                 title: "Team Standup",
                 duration: 120,
                 priority: 2
-            }]"""
-    }
+            }]""",
+    },
 ]
 
-# Fixed event, duration
 # Deadline event, start before 24 hrs
-# stress level
-# sleep quality
 
 # conflict between task and stress -> put in least stressful
-#
