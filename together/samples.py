@@ -115,7 +115,8 @@ SAMPLES = [
                 isFixed: false,
                 title: "Team Standup",
                 duration: 120,
-                priority: "You appear to always be stressed around this time :(. Consider doing this task later on when you are less stressed!"
+                priority: 2,
+                reason: "You appear to always be stressed around this time :(. Consider doing this task later on when you are less stressed!"
             }]""",
     },
     {

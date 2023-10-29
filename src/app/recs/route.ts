@@ -8,48 +8,49 @@ export async function GET(request: Request) {
       "https://api.together.xyz/inference",
       {
         model:
-          // "aarona@bu.edu/CodeLlama-13b-Instruct-atlasAI-finetune-2023-10-29-04-24-24",
-          "togethercomputer/CodeLlama-34b-Instruct",
+          "aarona@bu.edu/CodeLlama-13b-Instruct-atlasAI-finetune-2023-10-29-04-24-24",
+        // "togethercomputer/CodeLlama-34b-Instruct",
         max_tokens: 2043,
         prompt:
           "[INST] " +
-          "Based on the following tasks and stress scores, generate a new schedule that contains a list of event objects" +
-          "Provide the data in the form of a list of JSON objects, here is an example:" +
+          "Based on the following tasks and stress scores, generate a new schedule that contains JSON parseable list of event objects" +
+          "Include a comma between each event object. Please follow this template." +
           `output: [
             {
-                startTime: "2023-11-13T20:00:00",
-                deadline: "2023-11-18T12:00:00",
-                isFixed: false,
-                title: "Math Problem Set 1",
-                duration: 240,  
-                priority: 1,
-                reason: "You appear to always be stressed around this time :(. Consider doing homework later on when you are less stressed!"
+                "startTime": "2023-11-13T20:00:00",
+                "deadline": "2023-11-18T12:00:00",
+                "isFixed": false,
+                "title": "Math Problem Set 1",
+                "duration": 240,  
+                "priority": 1,
+                "reason": "You appear to always be stressed around this time :(. Consider doing homework later on when you are less stressed!"
             }, 
             {
-                startTime: "2023-11-13T15:00:00",
-                deadline: NULL,
-                isFixed: true,
-                title: "Basketball Training",
-                duration: 120, 
-                priority: 2,  
-                reason: "You appear more stressed in the morning. How about exercising later in the afternoon instead?"
+                "startTime": "2023-11-13T15:00:00",
+                "deadline": null,
+                "isFixed": true,
+                "title": "Basketball Training",
+                "duration": 120, 
+                "priority": 2,  
+                "reason": "You appear more stressed in the morning. How about exercising later in the afternoon instead?"
             },
             {
-                startTime: "2023-11-13T14:00:00",
-                deadline: NULL,
-                isFixed: true,
-                title: "Coding class",
-                duration: 60, 
-                priority: 1,
-                reason: NULL
+                "startTime": "2023-11-13T14:00:00",
+                "deadline": null,
+                "isFixed": true,
+                "title": "Coding class",
+                "duration": 60, 
+                "priority": 1,
+                "reason": null
             },
             {
-                startTime: "2023-11-13T18:00:00",
-                deadline: NULL,
-                isFixed: false,
-                title: "Team Standup",
-                duration: 120,
-                priority: "You appear to always be stressed around this time :(. Consider doing this task later on when you are less stressed!"
+                "startTime": "2023-11-13T18:00:00",
+                "deadline": null,
+                "isFixed": false,
+                "title": "Team Standup",
+                "duration": 120,
+                "priority": 2,
+                "reason": "You appear to always be stressed around this time :(. Consider doing this task later on when you are less stressed!"
             }].` +
           "If the current schedule makes sense, you do not need to change it." +
           "If there is a difference between the new schedule and the old schedule, " +
@@ -72,10 +73,30 @@ export async function GET(request: Request) {
         },
       }
     );
-    const re = /"text":"(.*?)"/g;
+    let re = /"text":"(.*?)"/g;
     let match;
     while ((match = re.exec(res.data)) !== null) {
       ret += match[1];
+    }
+    ret = ret
+      .replace(/\\n/g, "")
+      .replace(/\\/g, `\"`)
+      .replace(/\" \"/g, '":"')
+      .replace(/\" \:/g, '":"')
+      .replace(/isFixed"/g, 'isFixed":')
+      .replace(/deadline" null/g, 'deadline": null')
+      .replace(/duration"/g, 'duration":')
+      .replace(/priority"/g, 'priority":')
+      .replace(/reason" null/g, 'reason": null')
+      .replace(/\s\s+/g, " ")
+      .replace(/\" \"/g, '", "')
+      .replace(/\"\":/g, '", "');
+    console.log(ret);
+
+    re = /(\[.*?\])/;
+    match = ret.match(re);
+    if (match) {
+      ret = JSON.parse(match[1]);
     }
   } catch (e: unknown) {
     console.log(e);
