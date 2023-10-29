@@ -17,6 +17,9 @@ import { api } from "../../../convex/_generated/api";
 import utc from "dayjs/plugin/utc"; // UTC plugin
 import timezone from "dayjs/plugin/timezone";
 import dayjs from "dayjs";
+import RecommendedCard from "../components/RecommendedCard";
+import SpotifyDrawer from "../components/SpotifyDrawer";
+import { Typography } from "@mui/material";
 
 ChartJS.register(
   CategoryScale,
@@ -108,7 +111,6 @@ export default function Stats() {
   ];
 
   const dataSet = pastStressScores.map((value) => value.score);
-  console.log(dataSet);
 
   const data = {
     labels,
@@ -121,6 +123,55 @@ export default function Stats() {
       },
     ],
   };
+
+  // Recommended Tasks.
+  interface Recommendation {
+    title: string;
+    recommendation: string;
+  }
+
+  interface StressRecommendation {
+    title: string;
+    recommendation: string;
+  }
+
+  const stressRecommendations: StressRecommendation[] = [
+    {
+      title: "High Stress During Work Hours",
+      recommendation:
+        "We've noticed a pattern of elevated stress levels during your typical working hours. Consider taking short breaks to step away from your workstation, practice deep-breathing exercises, or take a walk to reset your mind.",
+    },
+
+    {
+      title: "Post-Exercise Stress Increase",
+      recommendation:
+        "An increase in stress levels is observed post-workout. While exercise generally lowers stress, intense workouts can temporarily have the opposite effect. Consider a mix of cardio and relaxation-based exercises like yoga.",
+    },
+    {
+      title: "Morning Stress",
+      recommendation:
+        "High stress levels are observed in the mornings. A structured morning routine including light exercise, a balanced breakfast, and planning for the day can set a positive tone.",
+    },
+  ];
+
+  const sleepRecommendations: Recommendation[] = [
+    {
+      title: "Weekday vs Weekend Variance",
+      recommendation:
+        "Our analysis shows that your sleep quality varies between weekdays and weekends, which can be disruptive to your natural circadian rhythm. To maintain a balanced work-life cycle, aim to standardize your sleep hours across the week. Consider stress-relief activities during weekdays and avoid oversleeping on weekends.",
+    },
+    {
+      title: "Inconsistent Sleep Scores",
+      recommendation:
+        "We've noticed fluctuations in your sleep scores throughout the month. This inconsistency can lead to long-term sleep debt. Establish a stable bedtime and wake-up routine, including on weekends, to improve overall sleep quality.",
+    },
+
+    {
+      title: "Mid-Sleep Wakefulness",
+      recommendation:
+        "Your sleep score shows a dip in quality midway through your sleep cycle. This could be indicative of disrupted REM sleep. Avoid alcohol or heavy meals before bed, and consider using blackout curtains to create a sleep-conducive environment.",
+    },
+  ];
 
   return (
     <div>
@@ -147,13 +198,44 @@ export default function Stats() {
       </div>
 
       <div className="tw-mt-10">
-        <h1 className="tw-text-4xl tw-font-bold">Recommendations:</h1>
-        <ul className="tw-text-xl">
-          <li>Take a 5 minute breather</li>
-          <li>Have a 10 minute powernap</li>
-          <li>Consider taking the time to meditate</li>
-        </ul>
+        <div className="tw-w-full tw-flex tw-justify-center">
+          <div>
+            <Typography variant="h5" className="tw-text-center">
+              Sleep Insights
+            </Typography>
+
+            <div className="tw-flex tw-flex-col tw-justify-items-center tw-items-center tw-mt-10">
+              {sleepRecommendations.map((recommended, index) => {
+                return (
+                  <RecommendedCard
+                    key={index}
+                    title={recommended.title}
+                    description={recommended.recommendation}
+                  />
+                );
+              })}
+            </div>
+          </div>
+
+          <div>
+            <Typography variant="h5" className="tw-text-center">
+              Stress Insights
+            </Typography>
+            <div className="tw-flex tw-flex-col tw-justify-items-center tw-items-center tw-mt-10">
+              {stressRecommendations.map((recommended, index) => {
+                return (
+                  <RecommendedCard
+                    key={index}
+                    title={recommended.title}
+                    description={recommended.recommendation}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
+      <SpotifyDrawer stress={stressScore} />
     </div>
   );
 }

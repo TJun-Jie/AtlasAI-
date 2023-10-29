@@ -1,7 +1,7 @@
 import { Doc } from "../../../convex/_generated/dataModel";
 
 export type TaskItemProps = {
-  task: Doc<"tasks">;
+  task: Doc<"tasks"> | Doc<"recommendedTasks">;
 };
 
 const TaskItem: React.FC<TaskItemProps> = (props) => {

@@ -16,6 +16,7 @@ import type {
 } from "convex/server";
 import type * as http from "../http";
 import type * as predictedMetrics from "../predictedMetrics";
+import type * as recommendedTasks from "../recommendedTasks";
 import type * as schedule_tasks from "../schedule_tasks";
 import type * as sleepScores from "../sleepScores";
 import type * as stressScores from "../stressScores";
@@ -32,6 +33,7 @@ import type * as tasks from "../tasks";
 declare const fullApi: ApiFromModules<{
   http: typeof http;
   predictedMetrics: typeof predictedMetrics;
+  recommendedTasks: typeof recommendedTasks;
   schedule_tasks: typeof schedule_tasks;
   sleepScores: typeof sleepScores;
   stressScores: typeof stressScores;
