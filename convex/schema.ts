@@ -18,4 +18,23 @@ export default defineSchema({
     hour: v.number(),
     score: v.number(),
   }),
+  sleepScores: defineTable({
+    hour: v.number(),
+    score: v.number(),
+  }),
+
+  predictedMetrics: defineTable({
+    predictedStressScores: v.array(
+      v.object({
+        hour: v.number(),
+        score: v.number(),
+      })
+    ),
+    predictedSleepScores: v.array(
+      v.object({
+        hour: v.number(),
+        score: v.number(),
+      })
+    ),
+  }),
 });

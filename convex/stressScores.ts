@@ -1,12 +1,20 @@
-import { httpAction, internalMutation } from "./_generated/server";
+import { httpAction, internalMutation, query } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
+import { calculateSleepData } from "./sleepScores";
 
-interface HeartSummaryData {
-  avg_hrv_sdnn: number;
-  avg_hr_bpm: number;
-  max_hr_bpm: number;
-  min_hr_bpm: number;
+export function getCurrentHourInSanFrancisco(): number {
+  // Get current UTC time in milliseconds
+  const nowUTC = new Date().getTime();
+
+  // Calculate the offset for San Francisco (PDT/PST is UTC-7/UTC-8)
+  // Note: This won't adjust for Daylight Saving Time
+  const offsetInMilliseconds = 7 * 60 * 60 * 1000;
+
+  // Convert to San Francisco time
+  const nowInSanFrancisco = new Date(nowUTC - offsetInMilliseconds);
+
+  return nowInSanFrancisco.getUTCHours();
 }
 
 function calculateStress(heartData: any) {
@@ -49,12 +57,21 @@ export const getTerraAPI = httpAction(async (ctx, request) => {
     const heartData = data.data[0].heart_data;
     const stress = calculateStress(heartData);
 
-    // const nowInSanFrancisco = DateTime.now().setZone("America/Los_Angeles");
-    // const hourInSanFrancisco: number = nowInSanFrancisco.hour;
+    const currentHour = getCurrentHourInSanFrancisco();
 
     await ctx.runMutation(internal.stressScores.addStressScores, {
-      hour: 1,
+      hour: currentHour,
       score: stress,
+    });
+  } else if (type === "sleep") {
+    const sleepData = data.data[0];
+    const sleep = calculateSleepData(sleepData);
+
+    const currentHour = getCurrentHourInSanFrancisco();
+
+    await ctx.runMutation(internal.sleepScores.addSleepScores, {
+      hour: currentHour,
+      score: sleep,
     });
   } else {
     console.log("Type is not available in the request body.");
@@ -73,5 +90,12 @@ export const addStressScores = internalMutation({
   },
   handler: async (ctx, args) => {
     await ctx.db.insert("stressScores", args);
+  },
+});
+
+export const getStressScores = query({
+  args: { hour: v.number() },
+  handler: async (ctx, args) => {
+    return await ctx.db.query("stressScores").order("desc").take(1);
   },
 });
