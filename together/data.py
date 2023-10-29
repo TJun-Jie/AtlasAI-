@@ -3,7 +3,8 @@ import re
 
 from samples import SAMPLES
 
-PROMPT_PREFIX = """Generate a new schedule based on the following tasks and stress scores. 
+PROMPT_PREFIX = """Generate a new schedule that contains a list of event objects,
+                based on the following tasks and stress scores.
                 If the current schedule makes sense, you do not need to change it.
                 If there is a difference between the new schedule and the old schedule, 
                 add a new reason field to each rescheduled task and describe the reason for the change.\n"""
