@@ -3,6 +3,9 @@ import re
 
 from samples import SAMPLES
 
+PROMPT_PREFIX = """Generate a new schedule based on the following tasks and stress scores. 
+                If the current schedule makes sense, you do not need to change it.\n"""
+
 
 def clean_data(samples: list):
     res = []
@@ -10,7 +13,8 @@ def clean_data(samples: list):
         text = parse_sample(sample)
         res.append({"text": text})
     while len(res) < 100:
-        res.append({"text": parse_sample({})})
+        # res.append({"text": parse_sample({})})
+        res.append({"text": ""})
     return res
 
 
@@ -18,7 +22,7 @@ def parse_sample(sample: dict):
     text = "<s> [INST] "
     if sample.get("system", None):
         text += f"<<SYS>> {sample['system']} <</SYS>> "
-    text += f"{sample.get('prompt', '')} [/INST]"
+    text += f"{PROMPT_PREFIX} {sample.get('prompt', '')} [/INST]"
     text += f"{sample.get('output', '')} <s>"
     return remove_long_whitespace(text)
 
