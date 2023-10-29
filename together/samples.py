@@ -13,13 +13,10 @@ SAMPLES = [
                         hour: 0-23,
                         score: 0-100
                     }
-                    Given my stress score for each hour of the day, schedule tasks during my least stressful hours.
                     Schedule high prority tasks first, overwriting stress levels.
                     You can reschedule both flexible and fixed tasks.
-                    Respect the duration of the tasks. If I have a 30 minute task, do not schedule it for 15 minutes.
                     Do not schedule any tasks such that its startTime falls between 22:00 and 08:00.
-                    If there is a difference between the new schedule and the old schedule, add a new reason field to the task,
-                    describing the reason for the change.
+                    Respect the duration of the tasks. If I have a 30 minute task, do not schedule it for 15 minutes.
                     """,
         "prompt": """tasks: [
             {

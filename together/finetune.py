@@ -12,7 +12,7 @@ import together
 load_dotenv()
 
 # Global Configuration Variables.
-together.api_key = os.getenv("TOGETHER_AI_KEY")
+together.api_key = os.getenv("TOGETHER_API_KEY")
 JSONL_FILE = os.getenv("JSONL_FILE")
 MODEL = os.getenv("BASE_MODEL")
 OUTPUT_FILE = os.getenv("OUTPUT_FILE")

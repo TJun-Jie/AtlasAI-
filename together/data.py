@@ -4,7 +4,9 @@ import re
 from samples import SAMPLES
 
 PROMPT_PREFIX = """Generate a new schedule based on the following tasks and stress scores. 
-                If the current schedule makes sense, you do not need to change it.\n"""
+                If the current schedule makes sense, you do not need to change it.
+                If there is a difference between the new schedule and the old schedule, 
+                add a new reason field to each rescheduled task and describe the reason for the change.\n"""
 
 
 def clean_data(samples: list):
@@ -22,7 +24,7 @@ def parse_sample(sample: dict):
     text = "<s> [INST] "
     if sample.get("system", None):
         text += f"<<SYS>> {sample['system']} <</SYS>> "
-    text += f"{PROMPT_PREFIX} {sample.get('prompt', '')} [/INST]"
+    text += f"{PROMPT_PREFIX} {sample.get('prompt', '')} [/INST] "
     text += f"{sample.get('output', '')} <s>"
     return remove_long_whitespace(text)
 
