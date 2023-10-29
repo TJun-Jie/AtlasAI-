@@ -13,8 +13,44 @@ export async function GET(request: Request) {
         max_tokens: 2043,
         prompt:
           "[INST] " +
-          "Generate a new schedule that contains a list of event objects," +
-          "based on the following tasks and stress scores." +
+          "Based on the following tasks and stress scores, generate a new schedule that contains a list of event objects" +
+          "Provide the data in the form of a list of JSON objects, here is an example:" +
+          `output: [
+            {
+                startTime: "2023-11-13T20:00:00",
+                deadline: "2023-11-18T12:00:00",
+                isFixed: false,
+                title: "Math Problem Set 1",
+                duration: 240,  
+                priority: 1,
+                reason: "You appear to always be stressed around this time :(. Consider doing homework later on when you are less stressed!"
+            }, 
+            {
+                startTime: "2023-11-13T15:00:00",
+                deadline: NULL,
+                isFixed: true,
+                title: "Basketball Training",
+                duration: 120, 
+                priority: 2,  
+                reason: "You appear more stressed in the morning. How about exercising later in the afternoon instead?"
+            },
+            {
+                startTime: "2023-11-13T14:00:00",
+                deadline: NULL,
+                isFixed: true,
+                title: "Coding class",
+                duration: 60, 
+                priority: 1,
+                reason: NULL
+            },
+            {
+                startTime: "2023-11-13T18:00:00",
+                deadline: NULL,
+                isFixed: false,
+                title: "Team Standup",
+                duration: 120,
+                priority: "You appear to always be stressed around this time :(. Consider doing this task later on when you are less stressed!"
+            }].` +
           "If the current schedule makes sense, you do not need to change it." +
           "If there is a difference between the new schedule and the old schedule, " +
           "add a new reason field to each rescheduled task and describe the reason for the change.\n" +
@@ -36,14 +72,11 @@ export async function GET(request: Request) {
         },
       }
     );
-    const re = /text\\":\\(.*?)\\"/g;
-    const words = re.exec(res.data);
-    console.log(words);
-    for (const token of words ?? []) {
-      ret += token.slice(9);
+    const re = /"text":"(.*?)"/g;
+    let match;
+    while ((match = re.exec(res.data)) !== null) {
+      ret += match[1];
     }
-    console.log(ret);
-    ret = res.data;
   } catch (e: unknown) {
     console.log(e);
     if (e instanceof Error) {
