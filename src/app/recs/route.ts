@@ -36,11 +36,14 @@ export async function GET(request: Request) {
         },
       }
     );
-    // const data = JSON.parse(res.data);
-    // for (const token of data.data) {
-    //   ret += token.choices[0].text;
-    // }
-    ret = res.data
+    const re = /text\\":\\(.*?)\\"/g;
+    const words = re.exec(res.data);
+    console.log(words);
+    for (const token of words ?? []) {
+      ret += token.slice(9);
+    }
+    console.log(ret);
+    ret = res.data;
   } catch (e: unknown) {
     console.log(e);
     if (e instanceof Error) {
