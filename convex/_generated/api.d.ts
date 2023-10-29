@@ -14,6 +14,8 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as http from "../http";
+import type * as stressScores from "../stressScores";
 import type * as tasks from "../tasks";
 
 /**
@@ -25,6 +27,8 @@ import type * as tasks from "../tasks";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  http: typeof http;
+  stressScores: typeof stressScores;
   tasks: typeof tasks;
 }>;
 export declare const api: FilterApi<
