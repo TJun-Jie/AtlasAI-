@@ -25,7 +25,7 @@ def parse_sample(sample: dict):
     if sample.get("system", None):
         text += f"<<SYS>> {sample['system']} <</SYS>> "
     text += f"{PROMPT_PREFIX} {sample.get('prompt', '')} [/INST] "
-    text += f"{sample.get('output', '')} <s>"
+    text += f"{sample.get('output', '')} </s>"
     return remove_long_whitespace(text)
 
 

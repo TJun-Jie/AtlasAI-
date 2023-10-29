@@ -326,99 +326,60 @@ SAMPLES = [
     },
     {
         "prompt": """tasks: [
-            {
-                startTime: "2023-11-14T17:00:00",
-                deadline: "2023-11-15T12:00:00",
-                isFixed: false,
-                title: "Math Problem Set 2",
-                duration: 240,  
-                priority: 2
-            }, 
-            {
-                startTime: "2023-11-14T09:00:00",
-                deadline: NULL,
-                isFixed: true,
-                title: "Gym Training",
-                duration: 120, 
-                priority: 2  
-            },
-            {
-                startTime: "2023-11-14T14:00:00",
-                deadline: NULL,
-                isFixed: true,
-                title: "Coding Class",
-                duration: 60, 
-                priority: 1 
-            },
-            {
-                startTime: "2023-11-14T13:30:00",
-                deadline: NULL,
-                isFixed: false,
-                title: "Project Meeting",
-                duration: 120,
-                priority: 3
-            }],
-            
-            stressScores: [
-            { hour: 0, score: 100 },
-            { hour: 1, score: 100 },
-            { hour: 2, score: 100 },
-            { hour: 3, score: 100 },
-            { hour: 4, score: 100 },
-            { hour: 5, score: 100 },
-            { hour: 6, score: 100 },
-            { hour: 7, score: 100 },
-            { hour: 8, score: 100 },
-            { hour: 9, score: 70 },
-            { hour: 10, score: 60 },
-            { hour: 11, score: 60 },
-            { hour: 12, score: 60 },
-            { hour: 13, score: 70 },
-            { hour: 14, score: 70 },
-            { hour: 15, score: 80 },
-            { hour: 16, score: 80 },
-            { hour: 17, score: 80 },
-            { hour: 18, score: 50 },
-            { hour: 19, score: 50 },
-            { hour: 20, score: 50 },
-            { hour: 21, score: 50 },
-            { hour: 22, score: 50 },
-            { hour: 23, score: 50 },
-            ]
+        {
+            startTime: "2023-11-13T08:00:00",
+            deadline: NULL,
+            isFixed: true,
+            title: "Morning Jog",
+            duration: 60,  
+            priority: 1
+        }, 
+        {
+            startTime: "2023-11-13T13:00:00",
+            deadline: NULL,
+            isFixed: true,
+            title: "Lunch with Clients",
+            duration: 90, 
+            priority: 2 
+        },
+        {
+            startTime: "2023-11-13T15:00:00",
+            deadline: NULL,
+            isFixed: false,
+            title: "Project Meeting",
+            duration: 120,
+            priority: 3
+        }],
+        stressScores: [ /* stress scores array */ ]
         """,
         "output": """[
-            {
-                startTime: "2023-11-14T18:00:00",
-                deadline: "2023-11-15T12:00:00",
-                isFixed: false,
-                title: "Math Problem Set 2",
-                duration: 240,  
-                priority: 2
-            }, 
-            {
-                startTime: "2023-11-14T09:00:00",
-                deadline: NULL,
-                isFixed: true,
-                title: "Gym Training",
-                duration: 120, 
-                priority: 2  
-            },
-            {
-                startTime: "2023-11-14T14:00:00",
-                deadline: NULL,
-                isFixed: true,
-                title: "Coding Class",
-                duration: 60, 
-                priority: 1 
-            },
-            {
-                startTime: "2023-11-14T11:00:00",
-                deadline: NULL,
-                isFixed: false,
-                title: "Project Meeting",
-                duration: 120,
-                priority: 3
-            }]""",
+        {
+            startTime: "2023-11-13T08:00:00",
+            deadline: NULL,
+            isFixed: true,
+            title: "Morning Jog",
+            duration: 60,  
+            priority: 1,
+            reason: NULL
+        },
+        {
+            startTime: "2023-11-13T10:00:00",
+            deadline: NULL,
+            isFixed: false,
+            title: "Project Meeting",
+            duration: 120,
+            priority: 3,
+            reason: "This task has the highest priority and has been scheduled at the earliest available time slot."
+        },
+        {
+            startTime: "2023-11-13T13:00:00",
+            deadline: NULL,
+            isFixed: true,
+            title: "Lunch with Clients",
+            duration: 90, 
+            priority: 2,
+            reason: "This task has a medium priority and fits well into your schedule."
+        }]""",
     },
 ]
 
