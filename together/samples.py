@@ -89,15 +89,17 @@ SAMPLES = [
                 isFixed: false,
                 title: "Math Problem Set 1",
                 duration: 240,  
-                priority: 1
+                priority: 1,
+                reason: "You appear to always be stressed around this time :(. Consider doing homework later on when you are less stressed!"
             }, 
             {
-                startTime: "2023-11-13T09:00:00",
+                startTime: "2023-11-13T15:00:00",
                 deadline: NULL,
                 isFixed: true,
                 title: "Basketball Training",
                 duration: 120, 
-                priority: 2  
+                priority: 2,  
+                reason: "You appear more stressed in the morning. How about exercising later in the afternoon instead?"
             },
             {
                 startTime: "2023-11-13T14:00:00",
@@ -105,7 +107,8 @@ SAMPLES = [
                 isFixed: true,
                 title: "Coding class",
                 duration: 60, 
-                priority: 1 
+                priority: 1,
+                reason: NULL
             },
             {
                 startTime: "2023-11-13T18:00:00",
@@ -113,7 +116,7 @@ SAMPLES = [
                 isFixed: false,
                 title: "Team Standup",
                 duration: 120,
-                priority: 2
+                priority: "You appear to always be stressed around this time :(. Consider doing this task later on when you are less stressed!"
             }]""",
     },
     {
@@ -188,15 +191,17 @@ SAMPLES = [
                 isFixed: false,
                 title: "Math Problem Set 1",
                 duration: 240,  
-                priority: 2
-            }, 
+                priority: 2,
+                reason: "You appear to always be stressed around this time :(. Consider doing homework later on when you are less stressed!"
+            },
             {
-                startTime: "2023-11-13T09:00:00",
+                startTime: "2023-11-13T15:00:00",
                 deadline: NULL,
                 isFixed: true,
                 title: "Basketball Training",
                 duration: 120, 
-                priority: 2  
+                priority: 2,
+                reason: "You appear more stressed in the morning. How about exercising later in the afternoon instead?"
             },
             {
                 startTime: "2023-11-13T14:00:00",
@@ -204,7 +209,8 @@ SAMPLES = [
                 isFixed: true,
                 title: "Coding class",
                 duration: 60, 
-                priority: 1 
+                priority: 1,
+                reason: NULL
             },
             {
                 startTime: "2023-11-13T11:00:00",
@@ -212,7 +218,8 @@ SAMPLES = [
                 isFixed: false,
                 title: "Team Standup",
                 duration: 120,
-                priority: 3
+                priority: 3,
+                reason: "This task has a very high priority! Let's get it out of the way ASAP!"
             }]""",
     },
     {
@@ -287,15 +294,17 @@ SAMPLES = [
                 isFixed: false,
                 title: "Math Problem Set 1",
                 duration: 240,  
-                priority: 1
+                priority: 1,
+                reason: "Deadline incoming! You got this!"
             }, 
             {
-                startTime: "2023-11-13T09:00:00",
+                startTime: "2023-11-13T08:00:00",
                 deadline: NULL,
                 isFixed: true,
                 title: "Basketball Training",
                 duration: 120, 
-                priority: 2  
+                priority: 2,
+                reason: "How about exercising in the morning when you have more energy?"
             },
             {
                 startTime: "2023-11-13T14:00:00",
@@ -303,7 +312,8 @@ SAMPLES = [
                 isFixed: true,
                 title: "Coding class",
                 duration: 60, 
-                priority: 1 
+                priority: 1,
+                reason: NULL
             },
             {
                 startTime: "2023-11-13T19:00:00",
@@ -311,7 +321,8 @@ SAMPLES = [
                 isFixed: false,
                 title: "Team Standup",
                 duration: 120,
-                priority: 2
+                priority: 2,
+                reason: "Consider doing tasks later in the day, when you are less stressed!"
             }]""",
     },
     {
